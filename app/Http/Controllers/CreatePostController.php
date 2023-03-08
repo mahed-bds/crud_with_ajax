@@ -31,7 +31,7 @@ class CreatePostController extends Controller
         $user->save();
 
         // return response
-        return response()->json(['success' => true]);
+        return response()->json(['success' => true,'message'=>'data stored Successfully']);
     }
 
   
@@ -57,5 +57,35 @@ class CreatePostController extends Controller
         $user->email = $request->input('email');
         $user->save();
         return response()->json(['success' => true,'message'=>'Message Updated Successfully']);
+    }
+
+    //live search
+
+    public function Search(Request $request){
+      
+       $output="";
+        $search_allPost=Post::where('name','Like','%'.$request->search.'%')->get();
+        // return view('welcome', compact('search_allPost'));
+
+        foreach($search_allPost as $search_allPosts){
+            $output.='<tr>
+            <td>
+              '.$search_allPosts->name.'
+            </td>
+            <td>
+              '.$search_allPosts->email.'
+            </td>
+            
+            <td>'.' <button
+            onclick="editButton(\''. $search_allPosts->name .'\',\''. $search_allPosts->email .'\',\''. $search_allPosts->id .'\')"
+            class=" btn btn-primary edit-btn" data-toggle="modal" data-target="#myModal"
+            data-id=" '.$search_allPosts->id.' ">Edit</button> 
+            <button class="btn btn-danger delete-btn" data-id="'.$search_allPosts->id.'">Delete</button>'.'</td>
+           
+            </tr>';
+        }
+        return response($output );
+       
+
     }
 }

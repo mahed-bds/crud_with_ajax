@@ -6,7 +6,7 @@
     });
 
     $(document).ready(function() {
-        $("#form-create").click(function(e) {
+        $("#clcik_for_create").click(function(e) {
 
             e.preventDefault();
 

@@ -19,6 +19,7 @@ Route::get('/', [CreatePostController::class, 'index']);
 Route::post('/create', [CreatePostController::class, 'store'])->name('create');
 Route::delete('users/{id}', [CreatePostController::class, 'destroy'])->name('delete');
 Route::post('/edit/{id}', [CreatePostController::class, 'edit'])->name('edit');
+Route::get('/search', [CreatePostController::class, 'Search'])->name('search');
 //Route::post('/create', [CreatePostController::class, 'store'])->name('create');
 // Route::get('/read/{id}', 'CreatePostController')->name('read');
 // Route::post('/update/{id}', 'CreatePostController')->name('update');

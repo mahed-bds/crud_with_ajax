@@ -22,13 +22,13 @@
             @csrf
             <input type="text" name="name">
             <input type="text" name="email">
-            <button type="submit">Create</button>
+            <button type="submit" id="clcik_for_create">Create</button>
         </form>
     </div>
 
 
     <div class="d-flex justify-content-center mt-3 mb-3">
-        <input placeholder="search by name" class="w-75"/>
+        <input placeholder="search by name" class="w-75" id="search"/>
     </div>
     <div class="container">
         <table class="table">
@@ -41,7 +41,7 @@
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody class="all_data">
                 @foreach ($allPost as $allPosts)
                     <tr>
                         <td>{{ $allPosts->name }}</td>
@@ -56,6 +56,17 @@
                 @endforeach
 
             </tbody>
+
+
+
+            <tbody id="content" class="search_data">
+
+            </tbody>
+
+
+     
+
+
         </table>
     </div>
 
@@ -93,12 +104,43 @@
 
         <script>
             function editButton(name, email, id) {
-                //console.log(name, email, id);
+                
                 $('#user_name').val(name);
                 $('#user_id').val(id);
                 $('#user_email').val(email);
 
             }
+        </script>
+
+        <script type="text/javascript">
+        $('#search').on('keyup',function(){
+            $value=$(this).val();
+            if($value)
+            {
+            
+                $('.all_data').hide();
+                $('.search_data').show(); 
+            }
+            else{
+                $('.all_data').show();
+                $('.search_data').hide();   
+            }
+          
+            var url = '{{route('search') }}';
+
+            $.ajax({
+                url: url,
+                method: "GET",
+                data:{'search':$value},
+                success:function(data){
+                    //console.log(data);
+
+                    $('#content').html(data);
+                
+                }
+            })
+        })
+
         </script>
 
 
